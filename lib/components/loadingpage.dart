@@ -1,11 +1,10 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, use_build_context_synchronously
 
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
-
 import '../pages/homepage/homepagePart/homepage.dart';
 import '../pages/loginpage/loginpage.dart';
 
@@ -19,12 +18,13 @@ class loadingpage extends StatefulWidget {
 class _loadingpageState extends State<loadingpage> {
   late SharedPreferences pref;
   late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
+  late Future _initializeVideoPlayerFuture;
 
   @override
   void initState() {
+    rememberMeLogic();
     _controller = VideoPlayerController.asset(
-        "flutter_assets/assets/video/Lightmind.mp4");
+        "flutter_assets/assets/video/adminLightmind.mp4");
 
     videoplay();
     // checkConnection();
@@ -38,20 +38,15 @@ class _loadingpageState extends State<loadingpage> {
 
   void videoplay() async {
     _initializeVideoPlayerFuture = _controller.initialize();
-    print("THis is where it starts");
     await _controller.play();
-    // Future.delayed(const Duration(milliseconds: 1350), () {
-    //   rememberMeLogic();
-    // });
+    Future.delayed(const Duration(milliseconds: 1350), () {});
   }
 
-  @override
-  void dispose() {
-    // Ensure disposing of the VideoPlayerController to free up resources.
-    _controller.dispose();
-
-    super.dispose();
-  }
+  // void dispose() {
+  //   // Ensure disposing of the VideoPlayerController to free up resources.
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   void rememberMeLogic() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -62,12 +57,13 @@ class _loadingpageState extends State<loadingpage> {
 
     try {
       if (pref.getBool("Remember me") == true) {
-        // print(pref.getString("email"));
-        // print(pref.getString("password"));
+        print(pref.getString("email"));
+        print(pref.getString("password"));
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: pref.getString("email").toString(),
-          password: pref.getString("password").toString(),
+          email: pref.getString("email").toString().trim(),
+          password: pref.getString("password").toString().trim(),
         );
+
         await Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const homepage()),
@@ -99,7 +95,6 @@ class _loadingpageState extends State<loadingpage> {
               child: Center(
                 child: AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
-                  // Use the VideoPlayer widget to display the video.
                   child: VideoPlayer(_controller),
                 ),
               ),
