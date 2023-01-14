@@ -2,12 +2,17 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iiest_app/pages/homepage/homepageButtons/book.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/bookmark.dart';
+import 'package:iiest_app/pages/homepage/homepageButtons/extra.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/labwork.dart';
-import 'package:iiest_app/pages/homepage/homepageButtons/settings.dart';
+import 'package:iiest_app/pages/homepage/homepageButtons/setting/settings.dart';
 import 'package:iiest_app/components/homepageComp.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/syllabus.dart';
+import 'package:iiest_app/pages/homepage/homepageButtons/test.dart';
+import 'package:iiest_app/utils/constants.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import '../homepageButtons/PYQs.dart';
 import 'panelwidget.dart';
 
 class homepage extends StatefulWidget {
@@ -18,6 +23,33 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  /*
+  // var names = " ";
+  @override
+  // void initState() {
+  //   // getProfileData();
+  //   super.initState();
+  //
+
+  // String getusername(String s) {
+  //   return names = s;
+  // }
+
+  // void getProfileData() {
+  //   var value = "";
+  //   var docRef = FirebaseFirestore.instance
+  //       .collection("user")
+  //       .doc(FirebaseAuth.instance.currentUser?.uid);
+  //   docRef.get().then(
+  //     (DocumentSnapshot doc) {
+  //       final data = doc.data() as Map<String, dynamic>;
+  //       print(data["Username"]);
+  //       getusername(data["Username"]);
+  //     },
+  //     onError: (e) => value = "Error getting document: $e",
+  //   );
+  // }
+*/
   @override
   Widget build(BuildContext context) {
     // MediaQuery.of(context).orientation == Orientation.landscape;
@@ -27,20 +59,21 @@ class _homepageState extends State<homepage> {
         // sliding section
         body: SafeArea(
           child: SlidingUpPanel(
+            // color: Colors.blue,
             color: Colors.blue,
-            minHeight: MediaQuery.of(context).size.height * 0.5,
-            maxHeight: MediaQuery.of(context).size.height * 0.88,
+            minHeight: screenheight(context) * 0.43,
+            maxHeight: screenheight(context) * 0.89,
             header: Padding(
               padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.47,
+                left: screenwidth(context) * 0.47,
               ),
               child: const Icon(
                 Icons.menu,
-                color: Colors.black,
+                // color: Colors.black,
               ),
             ),
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(35), topRight: Radius.circular(35)),
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             panelBuilder: (controller) => panelwidget(controller: controller),
             //not sliding section
             body: Column(
@@ -50,26 +83,30 @@ class _homepageState extends State<homepage> {
                     children: <Widget>[
                       Container(
                         decoration: const BoxDecoration(
+                          // homepage-image-bg-color
+                          color: Colors.white,
                           image: DecorationImage(
                             image: AssetImage("assets/studingkid.jpg"),
-                            fit: BoxFit.fitWidth,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.02),
+                        padding: EdgeInsets.all(screenwidth(context) * 0.02),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.03),
+                                  // vertical: screenheight(context) * 0.04,
+                                  horizontal: screenwidth(context) * 0.03),
                               child: const Text(
-                                "IIEST App",
+                                "LightMind",
                                 style: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 40,
+                                  fontFamily: "kalam",
+                                  //text-color
+                                  // color: Colors.amber
                                 ),
                               ),
                             ),
@@ -83,6 +120,8 @@ class _homepageState extends State<homepage> {
                                 },
                                 icon: const Icon(
                                   Icons.settings,
+                                  //setting-icon-color
+                                  // color: Colors.amber,
                                   size: 27,
                                 )),
                           ],
@@ -91,30 +130,61 @@ class _homepageState extends State<homepage> {
                     ],
                   ),
                 ),
-                const Divider(
-                  color: Colors.black38,
-                  thickness: 1,
-                  indent: 18,
-                  endIndent: 18,
+                Container(
+                  // color: Colors.black,
+                  child: const Divider(
+                    // color: Colors.white,
+                    thickness: 1,
+                    indent: 18,
+                    endIndent: 18,
+                  ),
                 ),
                 Container(
+                  //homepage-icon-bgColor
+                  // decoration: const BoxDecoration(color: Colors.black),
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05,
-                      vertical: MediaQuery.of(context).size.height * 0.02),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    horizontal: screenwidth(context) * 0.05,
+                  ),
+                  child: Column(
                     children: [
-                      HomepageIcons("Syllabus", Icons.notes_outlined,
-                          Colors.blue, context, syllabus()),
-                      HomepageIcons("Lab Work", CupertinoIcons.book_solid,
-                          Colors.red, context, labWork()),
-                      HomepageIcons("Bookmark", Icons.bookmark_add_outlined,
-                          Colors.green, context, const bookmark()),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          HomepageIcons("Syllabus", Icons.book, Colors.blue,
+                              context, const Syllabus()),
+                          HomepageIcons(
+                              "Lab Work",
+                              CupertinoIcons.lab_flask_solid,
+                              Colors.red,
+                              context,
+                              const Labwork()),
+                          HomepageIcons("PYQs", Icons.note_alt_sharp,
+                              Colors.amber, context, const PYQs()),
+                          HomepageIcons("Bookmark", Icons.bookmark_add_outlined,
+                              Colors.green, context, const bookmark()),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          HomepageIcons("Extra", Icons.notes_outlined,
+                              Colors.deepPurple[400], context, const extra()),
+                          HomepageIcons("Books", CupertinoIcons.book_solid,
+                              Colors.orange[600], context, const book()),
+                          HomepageIcons("Tests", Icons.edit_note_sharp,
+                              Colors.teal[400], context, const Tests()),
+                          const SizedBox(
+                            width: 60,
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.53,
+                // homepage-behindPanelwidget-BgColor
+                Container(
+                  // color: Colors.black,
+                  height: screenheight(context) * 0.47,
                 )
               ],
             ),

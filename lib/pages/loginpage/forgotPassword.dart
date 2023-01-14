@@ -3,6 +3,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:iiest_app/utils/constants.dart';
 
 final GlobalKey<ScaffoldMessengerState> forgotPasswordScaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -88,9 +89,8 @@ class _forgotPasswordState extends State<forgotPassword> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.075,
-                              width: MediaQuery.of(context).size.width * 0.55,
+                              height: screenheight(context) * 0.075,
+                              width: screenwidth(context) * 0.55,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
                                 color: Colors.amber,

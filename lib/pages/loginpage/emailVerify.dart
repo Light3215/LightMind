@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:iiest_app/components/loadingpage.dart';
-import 'package:iiest_app/pages/homepage/homepagePart/homepage.dart';
 import 'package:iiest_app/pages/loginpage/loginpage.dart';
+import 'package:iiest_app/model/users.dart';
+import 'package:iiest_app/utils/constants.dart';
 
 final GlobalKey<ScaffoldMessengerState> EmailscaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -21,14 +21,11 @@ class _emailVerifyState extends State<emailVerify> {
   bool isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
   Timer? timer;
   bool canResendEmail = false;
-
   @override
   void initState() {
     super.initState();
-
     if (!isEmailVerified) {
       sendVerificationMail();
-
       timer = Timer.periodic(
           const Duration(seconds: 4), (timer) => {checkEmailVerified()});
     }
@@ -41,9 +38,9 @@ class _emailVerifyState extends State<emailVerify> {
     });
 
     if (isEmailVerified) {
+      users.updateData("Is verified", true);
       timer?.cancel();
     }
-    ;
   }
 
   Future sendVerificationMail() async {
@@ -53,6 +50,7 @@ class _emailVerifyState extends State<emailVerify> {
       });
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
+      showSnack("Mail has been send successfully... ");
       await Future.delayed(const Duration(seconds: 5));
       setState(() {
         canResendEmail = true;
@@ -85,15 +83,35 @@ class _emailVerifyState extends State<emailVerify> {
                         fit: BoxFit.fill)),
                 child: SafeArea(
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Verification Mail has been send to your mail."),
-                    const Text("After getting verified , Restart the app."),
+                    Container(
+                      padding: const EdgeInsets.all(30),
+                      margin: const EdgeInsets.all(30),
+                      child: const Text(
+                        "Verification Mail has been send to your mail.",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(15),
+                      child: const Text(
+                        "After getting verified , Restart the app.",
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     GestureDetector(
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: screenheight(context) * 0.07,
+                        width: screenwidth(context) * 0.45,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
                           color: Colors.amber,
@@ -114,21 +132,4 @@ class _emailVerifyState extends State<emailVerify> {
             ),
           ),
         );
-}
-
-void showSnack(String title) {
-  snackbar(title) {
-    return SnackBar(
-        duration: const Duration(seconds: 4),
-        content: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
-        ));
-  }
-
-  EmailscaffoldMessengerKey.currentState?.showSnackBar(snackbar(title));
 }

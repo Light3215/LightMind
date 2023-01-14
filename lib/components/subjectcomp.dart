@@ -1,13 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
-import '../trail.dart';
-
-Subparts<Widget>(title, titlecontext, titlepages) {
+subparts(title, titlecontext, titlepages) {
   return InkWell(
     child: Container(
       height: MediaQuery.of(titlecontext).size.height * 0.12,
@@ -33,6 +27,7 @@ Subparts<Widget>(title, titlecontext, titlepages) {
               horizontal: MediaQuery.of(titlecontext).size.width * 0.04),
           child: Text(
             "$title",
+            textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 20),
           ),
         ),
@@ -56,28 +51,29 @@ AppBar appbarName(appbarName, AppBarcontext) {
       ),
     ),
     centerTitle: true,
-    toolbarHeight: MediaQuery.of(AppBarcontext).size.height * 0.06,
-    title: Container(
-      child: Text(
-        '$appbarName',
-        style: const TextStyle(color: Colors.black, fontSize: 25),
-      ),
+    toolbarHeight: MediaQuery.of(AppBarcontext).size.height * 0.07,
+    title: Row(
+      children: [
+        IconButton(
+            onPressed: () {
+              Navigator.pop(AppBarcontext);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
+        Text(
+          '$appbarName',
+          style: const TextStyle(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.w600),
+        ),
+      ],
     ),
     backgroundColor: Colors.amber,
   );
 }
 
-functionbox(context, functionIcon) {
-  return IconButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => trial()),
-        );
-      },
-      icon: Icon(functionIcon));
-}
-
+// open pdf in google drive
 openPDF(pdf) {
   final Uri launchUri = Uri(
     scheme: 'https',
@@ -89,3 +85,4 @@ openPDF(pdf) {
     throw 'Could not launch $launchUri , $e ';
   }
 }
+//eg. of a drive link : drive.google.com/file/d/1umBOrbXi9f0SRh3yzaNOBu9zaPqdanb9

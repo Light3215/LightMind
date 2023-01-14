@@ -15,7 +15,6 @@ class users {
 
   static users fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
-
     return users(
       Username: snapshot["username"],
       Uid: snapshot["uid"],
@@ -36,5 +35,13 @@ class users {
         .collection("user")
         .doc(cred?.uid)
         .update({key: value});
+  }
+
+  static getData() async {
+    var snap = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(cred?.uid)
+        .get();
+    return snap.data();
   }
 }

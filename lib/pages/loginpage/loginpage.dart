@@ -1,9 +1,7 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iiest_app/model/users.dart';
 import 'package:iiest_app/utils/constants.dart';
@@ -38,6 +36,7 @@ class _loginpageState extends State<loginpage> {
     });
   }
 
+  @override
   void dispose() {
     EmailController.dispose();
     PasswordController.dispose();
@@ -104,7 +103,7 @@ class _loginpageState extends State<loginpage> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               validator: (pword) {
-                                if (pword != null && (pword.length) < 7) {
+                                if (pword != null && (pword.length) < 6) {
                                   return "Enter minimum 6 characters";
                                 } else {
                                   return null;
@@ -166,7 +165,7 @@ class _loginpageState extends State<loginpage> {
                               const Text("Don't have an account?"),
                               TextButton(
                                   child: const Text(
-                                    "Sign In",
+                                    "Sign Up",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),

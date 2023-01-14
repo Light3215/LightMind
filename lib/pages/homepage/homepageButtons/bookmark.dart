@@ -3,10 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:iiest_app/components/PDFsCard/assignmentCard.dart';
-import 'package:iiest_app/components/PDFsCard/labCard.dart';
-import 'package:iiest_app/components/PDFsCard/syllabusCard.dart';
-import 'package:iiest_app/components/PDFsCard/theoryCard.dart';
+import 'package:iiest_app/components/PDFsCard/doubleSetCard.dart';
+import 'package:iiest_app/components/PDFsCard/singleSetCard.dart';
 import 'package:iiest_app/components/subjectcomp.dart';
 
 class bookmark extends StatefulWidget {
@@ -18,8 +16,6 @@ class bookmark extends StatefulWidget {
 
 class _bookmarkState extends State<bookmark> {
   late Stream<QuerySnapshot<Map<String, dynamic>>> dataLoaded;
-  get chapter => null;
-  get subject => null;
   Stream<QuerySnapshot<Map<String, dynamic>>> readData() =>
       FirebaseFirestore.instance
           .collection("user")
@@ -29,9 +25,10 @@ class _bookmarkState extends State<bookmark> {
 
   @override
   void initState() {
-    var val = readData();
+    var val1 = readData();
+
     setState(() {
-      dataLoaded = val;
+      dataLoaded = val1;
     });
     super.initState();
   }
@@ -58,29 +55,39 @@ class _bookmarkState extends State<bookmark> {
                 return ListView.builder(
                     itemCount: snapshot.data?.docs.length,
                     itemBuilder: (context, index) {
-                      print("hello world");
-                      print(snapshot.data?.docs[index].data()["type"]);
-                      print(snapshot.data?.docs[index].data()["subject"]);
+                      // print("hello world");
+                      // print(snapshot.data?.docs[index].data()["type"]);
+                      // print(snapshot.data?.docs[index].data()["subject"]);
                       var value = snapshot.data?.docs[index].data()["type"];
-                      if (value == "assignment") {
-                        return assignmentSet(
+                      if (value == "Assignment") {
+                        return doubleSetCard(
                           snap: snapshot.data?.docs[index].data(),
-                          subject: snapshot.data?.docs[index].data()["subject"],
-                          chapter: snapshot.data?.docs[index].data()["chapter"],
                         );
-                      } else if (value == "theory") {
-                        return TheorySet(
+                      } else if (value == "Theory") {
+                        return singleSetCard(
                           snap: snapshot.data?.docs[index].data(),
-                          subject: snapshot.data?.docs[index].data()["subject"],
-                          chapter: snapshot.data?.docs[index].data()['chapter'],
                         );
                       } else if (value == "Lab work") {
-                        return labWorkSet(
+                        return doubleSetCard(
                             snap: snapshot.data?.docs[index].data());
-                      } else {
-                        return syllabusSet(
+                      } else if (value == "Syllabus") {
+                        return singleSetCard(
                           snap: snapshot.data?.docs[index].data(),
                         );
+                      } else if (value == "PYQ") {
+                        return singleSetCard(
+                          snap: snapshot.data?.docs[index].data(),
+                        );
+                      } else if (value == "Books") {
+                        return singleSetCard(
+                          snap: snapshot.data?.docs[index].data(),
+                        );
+                      } else if (value == "Extra") {
+                        return singleSetCard(
+                          snap: snapshot.data?.docs[index].data(),
+                        );
+                      } else {
+                        return Container();
                       }
                     });
               }

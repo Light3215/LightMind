@@ -8,6 +8,7 @@ import 'package:iiest_app/model/users.dart';
 import 'package:iiest_app/utils/constants.dart';
 import 'package:iiest_app/pages/loginpage/emailVerify.dart';
 import 'package:iiest_app/pages/loginpage/loginpage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/loginComp.dart';
 
 GlobalKey<ScaffoldMessengerState> signUpscaffoldMessengerKey =
@@ -24,9 +25,16 @@ class signUpPage extends StatefulWidget {
 
 class _signUpPageState extends State<signUpPage> {
   @override
+  void initState() {
+    rememberMeLogic();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     EmailController.dispose();
     PasswordController.dispose();
+    UsernameController.dispose();
     super.dispose();
   }
 
@@ -35,6 +43,15 @@ class _signUpPageState extends State<signUpPage> {
   TextEditingController PasswordController = TextEditingController();
   bool isloading = false;
   bool cond = true;
+  var pref;
+  void rememberMeLogic() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var prefs = sharedPreferences;
+    setState(() {
+      pref = prefs;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -102,7 +119,7 @@ class _signUpPageState extends State<signUpPage> {
                                 AutovalidateMode.onUserInteraction,
                             validator: (pword) {
                               if (pword != null && (pword.length) < 7) {
-                                return "Enter minimum 6 characters";
+                                return "Enter minimum 8 characters";
                               } else {
                                 return null;
                               }
@@ -135,7 +152,7 @@ class _signUpPageState extends State<signUpPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            logInButton(const Text("Sign In"), signIn,
+                            logInButton(const Text("Sign Up"), signUp,
                                 Icons.person_add, context, isloading),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +186,7 @@ class _signUpPageState extends State<signUpPage> {
     );
   }
 
-  Future<void> signIn() async {
+  Future<void> signUp() async {
     setState(() {
       isloading = true;
     });
@@ -181,6 +198,7 @@ class _signUpPageState extends State<signUpPage> {
           email: EmailController.text.trim(),
           password: PasswordController.text.trim(),
         ));
+        pref.setString("Username", UsernameController.text);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const emailVerify()),

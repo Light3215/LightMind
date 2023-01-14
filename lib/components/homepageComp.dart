@@ -7,17 +7,15 @@ HomepageIcons<Widget>(iconname, icons, iconbkcolor, iconcontexts, iconpages) {
   return Column(
     children: [
       Container(
-        width: MediaQuery.of(iconcontexts).size.width * 0.14,
-        // height: MediaQuery.of(iconcontexts).size.width * 0.14,
+        width: MediaQuery.of(iconcontexts).size.width * 0.16,
+        height: MediaQuery.of(iconcontexts).size.width * 0.15,
         decoration: BoxDecoration(
-          color: iconbkcolor,
-          shape: BoxShape.circle,
-        ),
+            color: iconbkcolor, borderRadius: BorderRadius.circular(5)),
         child: IconButton(
           icon: Icon(
             icons,
             color: Colors.white,
-            size: 30,
+            size: 36,
           ),
           onPressed: () {
             Navigator.push(
@@ -27,11 +25,15 @@ HomepageIcons<Widget>(iconname, icons, iconbkcolor, iconcontexts, iconpages) {
           },
         ),
       ),
+      //homepage-icon-name
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
         child: Text(
           "$iconname",
-          style: const TextStyle(fontSize: 12),
+          //homepage-icon-name-theme
+          style: const TextStyle(
+            fontSize: 14,
+          ),
         ),
       ),
     ],

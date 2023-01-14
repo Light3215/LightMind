@@ -9,8 +9,6 @@ import 'package:iiest_app/components/loadingpage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -24,11 +22,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const start();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // theme: ThemeData(backgroundColor: Colors.black),
+      home: start(),
+    );
   }
 }
 
-// main code starts from here ------------------------------------------
+// main code starts from here ----------
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -40,8 +42,6 @@ class start extends StatefulWidget {
 }
 
 class _startState extends State<start> {
-  // bool isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +53,7 @@ class _startState extends State<start> {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: LinearProgressIndicator());
               } else if (snapshot.hasError) {
                 return const Center(
                   child:
