@@ -33,7 +33,9 @@ class _singleSetCardState extends State<singleSetCard> {
       likes = Icons.favorite;
     }
     PdfData.updateLikes(username!, snap);
-    PdfData.updateBookmarkedLike(username!, snap);
+    if (snap["bookmarked user"].contains(username)) {
+      PdfData.updateBookmarkedLike(username!, snap);
+    }
   }
 
   bookmarkSystem() {

@@ -22,10 +22,8 @@ class _loadingpageState extends State<loadingpage> {
 
   @override
   void initState() {
-    rememberMeLogic();
     _controller = VideoPlayerController.asset(
         "flutter_assets/assets/video/adminLightmind.mp4");
-
     videoplay();
     // checkConnection();
     super.initState();
@@ -39,7 +37,9 @@ class _loadingpageState extends State<loadingpage> {
   void videoplay() async {
     _initializeVideoPlayerFuture = _controller.initialize();
     await _controller.play();
-    Future.delayed(const Duration(milliseconds: 1350), () {});
+    Future.delayed(const Duration(milliseconds: 1350), () {
+      rememberMeLogic();
+    });
   }
 
   // void dispose() {
