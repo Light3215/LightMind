@@ -69,104 +69,135 @@ class _doubleSetCardState extends State<doubleSetCard> {
             left: screenwidth(context) * 0.02,
             right: screenwidth(context) * 0.02,
             bottom: screenheight(context) * 0.01),
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        margin: EdgeInsets.symmetric(
+            horizontal: screenwidth(context) * 0.04,
+            vertical: screenheight(context) * 0.02),
         decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 1,
-                  spreadRadius: 3,
-                  offset: Offset(2, 3))
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.grey,
+                blurRadius: 1,
+                spreadRadius: 3,
+                offset: Offset(2, 3))
+          ],
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(10),
+          gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Colors.amber,
+              Colors.yellowAccent,
             ],
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.amber[400]),
+          ),
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-                decoration: BoxDecoration(
-                    // border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber[400]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                likeSystem();
-                              });
-                            },
-                            icon: Icon(likes, color: Colors.red)),
-                        Text(
-                          (snap["liked user"].length).toString() + " likes",
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ],
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            likeSystem();
+                          });
+                        },
+                        icon: Icon(likes, color: Colors.red)),
+                    Text(
+                      (snap["liked user"].length).toString() + " likes",
+                      style: const TextStyle(fontSize: 15),
                     ),
-                    Row(children: [
-                      IconButton(
-                          onPressed: () {
-                            setState(() {
-                              bookmarkSystem();
-                            });
-                          },
-                          icon: Icon(
-                            bookmarks,
-                            color: Colors.green,
-                          )),
-                      IconButton(
-                          onPressed: () {
-                            report(context, snap, username);
-                          },
-                          icon: Icon(
-                            Icons.report,
-                            color: Colors.amber[800],
-                          ))
-                    ]),
                   ],
-                )),
+                ),
+                Row(children: [
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          bookmarkSystem();
+                        });
+                      },
+                      icon: Icon(
+                        bookmarks,
+                        color: Colors.green,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        report(context, snap, username);
+                      },
+                      icon: Icon(
+                        Icons.report,
+                        color: Colors.amber[800],
+                      ))
+                ]),
+              ],
+            ),
             Container(
+              height: screenheight(context) * 0.16,
+              width: screenwidth(context) * 0.90,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(children: [
-                GestureDetector(
-                    child: Container(
-                      height: screenheight(context) * 0.14,
-                      width: screenwidth(context) * 0.43572,
-                      // check
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10.0),
-                            bottomLeft: Radius.circular(10.0),
+                  // boxShadow: const [
+                  //   BoxShadow(
+                  //       color: Colors.grey,
+                  //       blurRadius: 1,
+                  //       spreadRadius: 3,
+                  //       offset: Offset(2, 3))
+                  // ],
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.purpleAccent,
+                      Colors.lightBlue,
+                    ],
+                  )),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                        child: Container(
+                          width: screenwidth(context) * 0.43,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.0),
+                              bottomLeft: Radius.circular(10.0),
+                            ),
+                            // color: Colors.lightBlue[400]
                           ),
-                          color: Colors.lightBlue[400]),
-                      child: Center(child: Text(snap["question desc"])),
-                    ),
-                    onTap: () {
-                      openPDF(snap['question link']);
-                    }),
-                GestureDetector(
-                    child: Container(
-                      height: screenheight(context) * 0.14,
-                      width: screenwidth(context) * 0.43572,
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(10.0),
-                            bottomRight: Radius.circular(10.0),
+                          child: Center(
+                              child: Text(
+                            snap["question desc"],
+                            textAlign: TextAlign.center,
+                          )),
+                        ),
+                        onTap: () {
+                          openPDF(snap['question link']);
+                        }),
+                    GestureDetector(
+                        child: Container(
+                          width: screenwidth(context) * 0.43,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(10.0),
+                              bottomRight: Radius.circular(10.0),
+                            ),
+                            // color: Colors.lightGreen[400]
                           ),
-                          color: Colors.lightGreen[400]),
-                      child: Center(child: Text(snap["answer desc"])),
-                    ),
-                    onTap: () {
-                      openPDF(snap['answer link']);
-                    })
-              ]),
+                          child: Center(
+                              child: Text(
+                            snap["answer desc"],
+                            // style: TextStyle(color: Colors.black),
+                            textAlign: TextAlign.center,
+                          )),
+                        ),
+                        onTap: () {
+                          openPDF(snap['answer link']);
+                        })
+                  ]),
             )
           ],
         ));
