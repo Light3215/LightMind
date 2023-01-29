@@ -44,14 +44,14 @@ class _contactUsState extends State<contactUs> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          "   kumarabhigyandeep@gmail.com",
+                          "   lightmindiiestdata@gmail.com",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 19),
                         ),
                         IconButton(
                             onPressed: () async {
                               await Clipboard.setData(const ClipboardData(
-                                  text: "kumarabhigyandeep@gmail.com"));
+                                  text: "lightmindiiestdata@gmail.com"));
                               contactUsScaffoldMessengerKey.currentState
                                   ?.showSnackBar(
                                       snackbar("Copied Successfully"));

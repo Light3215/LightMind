@@ -11,16 +11,12 @@ class Labwork extends StatefulWidget {
 
 class _LabworkState extends State<Labwork> {
   var lists = [
-    "Mechanics",
     "Basic Electrical Engineering",
     "Chemistry",
-    "Mathematics I",
-    "Mathematics II",
-    "English",
     "Computer Science",
-    "Environment and Ecology",
-    "Sociology and Professional Ethics",
-    "Physics"
+    "Physics",
+    "Engineering Drawing",
+    "Workshop"
   ];
 
   @override

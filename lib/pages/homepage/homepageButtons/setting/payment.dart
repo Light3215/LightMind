@@ -19,7 +19,7 @@ class _paymentState extends State<payment> {
           margin: const EdgeInsets.all(30),
           child: const Center(
             child: Text(
-              "No need to give anything to me.. \nAs a senior its my duty as well as honour to help and guide you all in the best way possible.. \nSo that in future, you all can become a senior every junior wants 💙",
+              "No need to give anything to me.. \nAs a senior its my duty to help and guide you all in the best way possible.. \nSo that in future, you all can become the senior every junior wants 💙",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 22),
             ),

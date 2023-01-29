@@ -22,8 +22,9 @@ class _loadingpageState extends State<loadingpage> {
 
   @override
   void initState() {
+    rememberMeLogic();
     _controller = VideoPlayerController.asset(
-        "flutter_assets/assets/video/adminLightmind.mp4");
+        "flutter_assets/assets/video/Lightmind.mp4");
     videoplay();
     // checkConnection();
     super.initState();
@@ -37,16 +38,14 @@ class _loadingpageState extends State<loadingpage> {
   void videoplay() async {
     _initializeVideoPlayerFuture = _controller.initialize();
     await _controller.play();
-    Future.delayed(const Duration(milliseconds: 1350), () {
-      rememberMeLogic();
-    });
+    Future.delayed(const Duration(milliseconds: 1350), () {});
   }
 
-  // void dispose() {
-  //   // Ensure disposing of the VideoPlayerController to free up resources.
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
+  void dispose() {
+    // Ensure disposing of the VideoPlayerController to free up resources.
+    _controller.dispose();
+    super.dispose();
+  }
 
   void rememberMeLogic() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -63,7 +62,7 @@ class _loadingpageState extends State<loadingpage> {
           email: pref.getString("email").toString().trim(),
           password: pref.getString("password").toString().trim(),
         );
-
+        print("waiting bro what you are doing");
         await Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const homepage()),
