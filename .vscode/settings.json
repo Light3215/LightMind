@@ -1,4 +1,4 @@
 {
     "cmake.configureOnOpen": true,
-    "cmake.sourceDirectory": "${workspaceFolder}/android/windows/flutter"
+    "cmake.sourceDirectory": "${workspaceFolder}/linux"
 }

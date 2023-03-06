@@ -20,7 +20,7 @@ class singleSetCard extends StatefulWidget {
 }
 
 class _singleSetCardState extends State<singleSetCard> {
-  var likes = Icons.favorite_border;
+  var likes = Icons.star_border;
   var bookmarks = Icons.bookmark_border;
 
   get snap => widget.snap;
@@ -28,9 +28,9 @@ class _singleSetCardState extends State<singleSetCard> {
 
   likeSystem() {
     if (snap["liked user"].contains(username)) {
-      likes = Icons.favorite_border;
+      likes = Icons.star_border;
     } else {
-      likes = Icons.favorite;
+      likes = Icons.star;
     }
     PdfData.updateLikes(username!, snap);
     if (snap["bookmarked user"].contains(username)) {
@@ -51,9 +51,9 @@ class _singleSetCardState extends State<singleSetCard> {
   void initState() {
     setState(() {
       if (snap["liked user"].contains(username)) {
-        likes = Icons.favorite;
+        likes = Icons.star;
       } else {
-        likes = Icons.favorite_border;
+        likes = Icons.star_border;
       }
       if (snap["bookmarked user"].contains(username)) {
         bookmarks = Icons.bookmark;
@@ -71,20 +71,133 @@ class _singleSetCardState extends State<singleSetCard> {
             left: screenwidth(context) * 0.02,
             right: screenwidth(context) * 0.02,
             bottom: screenheight(context) * 0.01),
-        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        margin: EdgeInsets.symmetric(
+            horizontal: screenwidth(context) * 0.04,
+            vertical: screenheight(context) * 0.013),
         decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black54,
-                  blurRadius: 1,
-                  spreadRadius: 3,
-                  offset: Offset(2, 3))
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.grey,
+                blurRadius: 1,
+                spreadRadius: 3,
+                offset: Offset(2, 3))
+          ],
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(10),
+          gradient: const LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Colors.amber,
+              Colors.yellow,
             ],
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.amber[400]),
+          ),
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            likeSystem();
+                          });
+                        },
+                        icon: Icon(likes, color: Colors.red)),
+                    Text(
+                      (snap["liked user"].length).toString() + " Stars",
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+                Row(children: [
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          bookmarkSystem();
+                        });
+                      },
+                      icon: Icon(
+                        bookmarks,
+                        color: Colors.green,
+                      )),
+                  IconButton(
+                      onPressed: () {
+                        report(context, snap, username);
+                      },
+                      icon: Icon(
+                        Icons.report,
+                        color: Colors.amber[800],
+                      ))
+                ]),
+              ],
+            ),
+            Container(
+              height: screenheight(context) * 0.135,
+              width: screenwidth(context) * 0.90,
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.blue,
+                      Colors.lightBlue,
+                    ],
+                  ),
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.lightBlue),
+              child: GestureDetector(
+                  child: Center(
+                      child: Text(
+                    snap["desc"],
+                    textAlign: TextAlign.center,
+                  )),
+                  onTap: () {
+                    openPDF(snap['link']);
+                  }),
+            )
+          ],
+        ));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
                 decoration: BoxDecoration(
@@ -139,8 +252,8 @@ class _singleSetCardState extends State<singleSetCard> {
               child: Row(children: [
                 GestureDetector(
                     child: Container(
-                      height: screenheight(context) * 0.14,
-                      width: screenwidth(context) * 0.43572 * 2,
+                      height: screenheight(context) * 0.13,
+                      width: screenwidth(context) * 0.85,
                       decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10.0),
@@ -154,6 +267,4 @@ class _singleSetCardState extends State<singleSetCard> {
               ]),
             )
           ],
-        ));
-  }
-}
+        )*/ 

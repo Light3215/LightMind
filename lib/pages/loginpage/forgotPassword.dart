@@ -70,7 +70,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                           controller: EmailController,
                           decoration: const InputDecoration(
                               // border: InputBorder.none,
-                              labelText: 'Enter College Email'),
+                              labelText: 'Enter Email'),
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (email) {
                             if (email != null &&
@@ -85,6 +85,7 @@ class _forgotPasswordState extends State<forgotPassword> {
                       padding: EdgeInsets.only(
                           right: MediaQuery.of(context).size.width * 0.08),
                       child: GestureDetector(
+                        onTap: resetPassword,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -105,7 +106,6 @@ class _forgotPasswordState extends State<forgotPassword> {
                             ),
                           ],
                         ),
-                        onTap: resetPassword,
                       ),
                     ),
                   ],

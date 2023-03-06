@@ -3,32 +3,40 @@
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 
-logInButton(Text text, login, icon, context, loading) {
+logInButton(text, login, icon, context, loading) {
   return Material(
     child: Ink(
       height: screenheight(context) * 0.07,
       width: screenwidth(context) * 0.45,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: Colors.amber,
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.black,
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(20),
         splashColor: Colors.yellow[800],
+        onTap: login,
         child: loading
             ? const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(icon),
-                  Center(child: text),
+                  Icon(
+                    icon,
+                    size: 25,
+                    color: Colors.amber,
+                  ),
+                  Center(
+                      child: Text(
+                    "  $text",
+                    style: const TextStyle(color: Colors.amber, fontSize: 18),
+                  )),
                 ],
               ),
-        onTap: login,
       ),
     ),
   );
@@ -36,8 +44,7 @@ logInButton(Text text, login, icon, context, loading) {
 
 backgrdImage() {
   return const BoxDecoration(
-      image: DecorationImage(
-          image: AssetImage("assets/back.jpeg"), fit: BoxFit.fill));
+      image: DecorationImage(image: AssetImage("assets/lock.png")));
 }
 
 SnackBar snackbar(title) {
@@ -63,10 +70,6 @@ titleHeader(String text, context) {
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(
-              text,
-              style: const TextStyle(fontSize: 35),
-            ),
             // Text("")
           ],
         ),

@@ -35,7 +35,7 @@ class _PYQsState extends State<PYQs> {
             child: ListView(physics: const BouncingScrollPhysics(), children: [
               for (var item in lists)
                 subparts(item, context,
-                    extraSubject(type: "PYQs", subjectName: item)),
+                    extraSubject(type: "PYQ", subjectName: item)),
             ]),
           )),
     );

@@ -13,12 +13,14 @@ class Mechanics extends StatefulWidget {
 
 class _MechanicsState extends State<Mechanics> {
   List lists = [
+    "Introduction to Statics",
     "Equilibrium",
     "Friction",
     "Structure: Truss And Frames",
     "Distributed Forces System ",
     "Kinematics of Particle",
     "Kinetics of Particle",
+    "Vibration"
   ];
   String type = "Mechanics";
   @override

@@ -105,7 +105,7 @@ class _settingsState extends State<settings> {
                 ),
                 ListTile(
                   leading: const Icon(
-                    Icons.feedback_outlined,
+                    Icons.feedback,
                     size: 29,
                     color: Colors.grey,
                   ),
@@ -119,7 +119,7 @@ class _settingsState extends State<settings> {
                 ),
                 ListTile(
                   leading: const Icon(
-                    Icons.report_problem_outlined,
+                    Icons.report_problem,
                     size: 29,
                     color: Colors.grey,
                   ),
@@ -134,7 +134,7 @@ class _settingsState extends State<settings> {
                 horizontalLine(context),
                 ListTile(
                   leading: const Icon(
-                    Icons.info_outline,
+                    Icons.info,
                     size: 29,
                     color: Colors.grey,
                   ),
@@ -147,6 +147,23 @@ class _settingsState extends State<settings> {
                       context,
                       MaterialPageRoute(builder: (context) => const about()),
                     );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.perm_device_info,
+                    size: 29,
+                    color: Colors.grey,
+                  ),
+                  title: const Text(
+                    "Licenses",
+                    style: TextStyle(fontSize: 19),
+                  ),
+                  onTap: () {
+                    showLicensePage(
+                        context: context,
+                        applicationName: "LightMind",
+                        applicationVersion: "0.0.1");
                   },
                 ),
                 ListTile(

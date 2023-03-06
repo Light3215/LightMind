@@ -41,11 +41,11 @@ class _loadingpageState extends State<loadingpage> {
     Future.delayed(const Duration(milliseconds: 1350), () {});
   }
 
-  void dispose() {
-    // Ensure disposing of the VideoPlayerController to free up resources.
-    _controller.dispose();
-    super.dispose();
-  }
+  // void dispose() {
+  //   // Ensure disposing of the VideoPlayerController to free up resources.
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   void rememberMeLogic() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

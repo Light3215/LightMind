@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class profile extends StatefulWidget {
@@ -12,6 +13,7 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   String getProfileData(String d) {
     var value = "";
+
     var docRef = FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser?.uid);

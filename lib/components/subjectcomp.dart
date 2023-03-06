@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iiest_app/pages/homepage/homepageButtons/setting/settings.dart';
+import 'package:iiest_app/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 subparts(title, titlecontext, titlepages) {
@@ -45,13 +47,13 @@ subparts(title, titlecontext, titlepages) {
 AppBar appbarName(appbarName, AppBarcontext) {
   return AppBar(
     // elevation: 0,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        bottom: Radius.circular(20),
-      ),
-    ),
-    centerTitle: true,
-    toolbarHeight: MediaQuery.of(AppBarcontext).size.height * 0.07,
+    // shape: const RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(
+    //     bottom: Radius.circular(20),
+    //   ),
+    // ),
+    // centerTitle: true,
+    // toolbarHeight: MediaQuery.of(AppBarcontext).size.height * 0.07,
     title: Row(
       children: [
         IconButton(
@@ -86,3 +88,42 @@ openPDF(pdf) {
   }
 }
 //eg. of a drive link : drive.google.com/file/d/1umBOrbXi9f0SRh3yzaNOBu9zaPqdanb9
+
+AppBar AppbarHomeScreen(Title, context) {
+  return AppBar(
+    backgroundColor: Colors.amber,
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+              // vertical: screenheight(context) * 0.04,
+              horizontal: screenwidth(context) * 0.03),
+          child: Text(
+            "$Title",
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 30,
+              fontFamily: "kalam",
+              //text-color
+              // color: Colors.amber
+            ),
+          ),
+        ),
+        IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const settings()),
+              );
+            },
+            icon: const Icon(
+              Icons.settings,
+              //setting-icon-color
+              color: Colors.black,
+              size: 25,
+            )),
+      ],
+    ),
+  );
+}

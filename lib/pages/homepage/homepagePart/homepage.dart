@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iiest_app/components/subjectcomp.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/book.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/bookmark.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/extra.dart';
@@ -12,7 +13,7 @@ import 'package:iiest_app/pages/homepage/homepageButtons/syllabus.dart';
 import 'package:iiest_app/pages/homepage/homepageButtons/test.dart';
 import 'package:iiest_app/utils/constants.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import '../homepageButtons/PYQs.dart';
+import '../homepageButtons/PYQ.dart';
 import 'panelwidget.dart';
 
 class homepage extends StatefulWidget {
@@ -56,12 +57,13 @@ class _homepageState extends State<homepage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppbarHomeScreen("Lightmind", context),
         // sliding section
         body: SafeArea(
           child: SlidingUpPanel(
             // color: Colors.blue,
-            color: Colors.blue,
-            minHeight: screenheight(context) * 0.43,
+            color: Colors.lightBlue.shade600,
+            minHeight: screenheight(context) * 0.37,
             maxHeight: screenheight(context) * 0.89,
             header: Padding(
               padding: EdgeInsets.only(
@@ -72,8 +74,8 @@ class _homepageState extends State<homepage> {
                 // color: Colors.black,
               ),
             ),
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            // borderRadius: const BorderRadius.only(
+            //     topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             panelBuilder: (controller) => panelwidget(controller: controller),
             //not sliding section
             body: Column(
@@ -91,47 +93,11 @@ class _homepageState extends State<homepage> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(screenwidth(context) * 0.02),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  // vertical: screenheight(context) * 0.04,
-                                  horizontal: screenwidth(context) * 0.03),
-                              child: const Text(
-                                "LightMind",
-                                style: TextStyle(
-                                  fontSize: 40,
-                                  fontFamily: "kalam",
-                                  //text-color
-                                  // color: Colors.amber
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const settings()),
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.settings,
-                                  //setting-icon-color
-                                  // color: Colors.amber,
-                                  size: 27,
-                                )),
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),
                 Container(
-                  // color: Colors.black,
+                  color: Colors.white,
                   child: const Divider(
                     // color: Colors.white,
                     thickness: 1,
@@ -140,6 +106,7 @@ class _homepageState extends State<homepage> {
                   ),
                 ),
                 Container(
+                  color: Colors.white,
                   //homepage-icon-bgColor
                   // decoration: const BoxDecoration(color: Colors.black),
                   padding: EdgeInsets.symmetric(
@@ -173,8 +140,8 @@ class _homepageState extends State<homepage> {
                               Colors.orange[600], context, const book()),
                           HomepageIcons("Tests", Icons.edit_note_sharp,
                               Colors.teal[400], context, const Tests()),
-                          const SizedBox(
-                            width: 60,
+                          SizedBox(
+                            width: screenwidth(context) * 0.16,
                           )
                         ],
                       ),
@@ -184,7 +151,7 @@ class _homepageState extends State<homepage> {
                 // homepage-behindPanelwidget-BgColor
                 Container(
                   // color: Colors.black,
-                  height: screenheight(context) * 0.47,
+                  height: screenheight(context) * 0.48,
                 )
               ],
             ),

@@ -62,121 +62,140 @@ class _signUpPageState extends State<signUpPage> {
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.white,
             body: Container(
-              decoration: backgrdImage(),
+              // decoration: backgrdImage(),
+              decoration: const BoxDecoration(color: Colors.amber),
               child: SafeArea(
                   child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(),
-                  titleHeader("Sign up", context),
-                  //email box
-                  Column(
-                    children: [
-                      //Email
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: screenwidth(context) * 0.08,
-                            right: screenwidth(context) * 0.08),
-                        child: TextFormField(
-                          controller: UsernameController,
-                          decoration: const InputDecoration(
-                              labelText: 'Enter Username'),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: screenwidth(context) * 0.08,
-                            right: screenwidth(context) * 0.08),
-                        child: TextFormField(
-                            controller: EmailController,
-                            decoration:
-                                const InputDecoration(labelText: 'Enter Email'),
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (email) {
-                              if (email != null &&
-                                  !EmailValidator.validate(email)) {
-                                return "Enter a valid email";
-                              } else {
-                                return null;
-                              }
-                            }),
-                      ),
-                      //Password
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: screenwidth(context) * 0.08,
-                            right: screenwidth(context) * 0.08),
-                        child: TextFormField(
-                            controller: PasswordController,
-                            obscureText: cond,
-                            decoration: const InputDecoration(
-                              labelText: 'Create Password',
-                            ),
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (pword) {
-                              if (pword != null && (pword.length) < 7) {
-                                return "Enter minimum 8 characters";
-                              } else {
-                                return null;
-                              }
-                            }),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                                right: screenwidth(context) * 0.05),
-                            child: TextButton(
-                              child: const Text("Show password"),
-                              onPressed: (() => {
-                                    setState(() => {cond = !cond})
-                                  }),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+                  SizedBox(
+                    height: screenheight(context) * 0.07,
                   ),
                   Container(
-                    padding: EdgeInsets.only(
-                      right: screenwidth(context) * 0.08,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            logInButton(const Text("Sign Up"), signUp,
-                                Icons.person_add, context, isloading),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text("Already have an account?"),
-                                TextButton(
-                                    child: const Text(
-                                      "Log In",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    onPressed: (() => {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    loginpage()),
-                                          ),
-                                        })),
-                              ],
-                            ),
-                          ],
+                    height: screenheight(context) * 0.2,
+                    width: screenwidth(context) * 0.3,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/person.png"))),
+                  ),
+                  Center(
+                    child: Container(
+                      height: screenheight(context) * 0.55,
+                      width: screenwidth(context) * 0.9,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
                         ),
-                      ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          //email box
+                          Column(
+                            children: [
+                              const Text(
+                                "Sign up",
+                                style: TextStyle(
+                                  fontSize: 35,
+                                ),
+                              ),
+                              //Email
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: screenwidth(context) * 0.08,
+                                    right: screenwidth(context) * 0.08),
+                                child: TextFormField(
+                                  controller: UsernameController,
+                                  decoration: const InputDecoration(
+                                      labelText: 'Enter Username'),
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: screenwidth(context) * 0.08,
+                                    right: screenwidth(context) * 0.08),
+                                child: TextFormField(
+                                    controller: EmailController,
+                                    decoration: const InputDecoration(
+                                        labelText: 'Enter Email'),
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    validator: (email) {
+                                      if (email != null &&
+                                          !EmailValidator.validate(email)) {
+                                        return "Enter a valid email";
+                                      } else {
+                                        return null;
+                                      }
+                                    }),
+                              ),
+                              //Password
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: screenwidth(context) * 0.08,
+                                    right: screenwidth(context) * 0.08),
+                                child: TextFormField(
+                                    controller: PasswordController,
+                                    obscureText: cond,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Create Password',
+                                    ),
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    validator: (pword) {
+                                      if (pword != null && (pword.length) < 7) {
+                                        return "Enter minimum 8 characters";
+                                      } else {
+                                        return null;
+                                      }
+                                    }),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        left: screenwidth(context) * 0.06),
+                                    child: TextButton(
+                                      onPressed: (() => {
+                                            setState(() => {cond = !cond})
+                                          }),
+                                      child: const Text("Show password"),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          const SizedBox(),
+                          logInButton("Sign Up", signUp, Icons.person_add,
+                              context, isloading),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Already have an account?"),
+                              TextButton(
+                                  onPressed: (() => {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const loginpage()),
+                                        ),
+                                      }),
+                                  child: const Text(
+                                    "Log In",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

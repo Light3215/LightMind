@@ -20,7 +20,7 @@ class doubleSetCard extends StatefulWidget {
 }
 
 class _doubleSetCardState extends State<doubleSetCard> {
-  var likes = Icons.favorite_border;
+  var likes = Icons.star_border;
   var bookmarks = Icons.bookmark_border;
 
   get snap => widget.snap;
@@ -28,9 +28,9 @@ class _doubleSetCardState extends State<doubleSetCard> {
 
   likeSystem() {
     if (snap["liked user"].contains(username)) {
-      likes = Icons.favorite_border;
+      likes = Icons.star_border;
     } else {
-      likes = Icons.favorite;
+      likes = Icons.star;
     }
     PdfData.updateLikes(username!, snap);
     if (snap["bookmarked user"].contains(username)) {
@@ -51,9 +51,9 @@ class _doubleSetCardState extends State<doubleSetCard> {
   void initState() {
     setState(() {
       if (snap["liked user"].contains(username)) {
-        likes = Icons.favorite;
+        likes = Icons.star;
       } else {
-        likes = Icons.favorite_border;
+        likes = Icons.star_border;
       }
       if (snap["bookmarked user"].contains(username)) {
         bookmarks = Icons.bookmark;
@@ -73,7 +73,7 @@ class _doubleSetCardState extends State<doubleSetCard> {
             bottom: screenheight(context) * 0.01),
         margin: EdgeInsets.symmetric(
             horizontal: screenwidth(context) * 0.04,
-            vertical: screenheight(context) * 0.02),
+            vertical: screenheight(context) * 0.013),
         decoration: BoxDecoration(
           boxShadow: const [
             BoxShadow(
@@ -89,7 +89,7 @@ class _doubleSetCardState extends State<doubleSetCard> {
             end: Alignment.centerRight,
             colors: [
               Colors.amber,
-              Colors.yellowAccent,
+              Colors.yellow,
             ],
           ),
         ),
@@ -109,7 +109,7 @@ class _doubleSetCardState extends State<doubleSetCard> {
                         },
                         icon: Icon(likes, color: Colors.red)),
                     Text(
-                      (snap["liked user"].length).toString() + " likes",
+                      (snap["liked user"].length).toString() + " Stars",
                       style: const TextStyle(fontSize: 15),
                     ),
                   ],
@@ -137,7 +137,7 @@ class _doubleSetCardState extends State<doubleSetCard> {
               ],
             ),
             Container(
-              height: screenheight(context) * 0.16,
+              height: screenheight(context) * 0.135,
               width: screenwidth(context) * 0.90,
               decoration: BoxDecoration(
                   // boxShadow: const [
@@ -162,7 +162,7 @@ class _doubleSetCardState extends State<doubleSetCard> {
                   children: [
                     GestureDetector(
                         child: Container(
-                          width: screenwidth(context) * 0.43,
+                          width: screenwidth(context) * 0.41,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10.0),
@@ -179,9 +179,14 @@ class _doubleSetCardState extends State<doubleSetCard> {
                         onTap: () {
                           openPDF(snap['question link']);
                         }),
+                    const VerticalDivider(
+                      thickness: 2,
+                      indent: 10,
+                      endIndent: 10,
+                    ),
                     GestureDetector(
                         child: Container(
-                          width: screenwidth(context) * 0.43,
+                          width: screenwidth(context) * 0.41,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(10.0),

@@ -371,6 +371,7 @@ class PdfData {
           .set({
         'Pid': snap["Pid"],
         'subject': snap["subject"],
+        'chapter': snap["chapter"] ?? "",
         'type': snap["type"],
         'report': reportMap,
       });
@@ -382,6 +383,7 @@ class PdfData {
           .set({
         'Pid': snap["Pid"],
         'subject': snap["subject"],
+        'chapter': snap["chapter"] ?? "",
         'type': snap["type"],
         "report": [rep]
       });

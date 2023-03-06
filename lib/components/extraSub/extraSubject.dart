@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iiest_app/components/PDFsCard/singleSetCard.dart';
 import 'package:iiest_app/components/subjectcomp.dart';
+import 'package:iiest_app/utils/constants.dart';
 import '../PDFsCard/doubleSetCard.dart';
 
 class extraSubject extends StatefulWidget {
@@ -84,8 +85,15 @@ class _extraSubjectState extends State<extraSubject> {
                         return singleSetCard(
                           snap: snapshot.data?.docs[index].data(),
                         );
+                      } else if (value == "Tests") {
+                        return singleSetCard(
+                          snap: snapshot.data?.docs[index].data(),
+                        );
                       } else {
-                        return const Center(child: Text("nothing here"));
+                        return Container(
+                            height: screenheight(context) * 0.07,
+                            child: const Center(
+                                child: Text("Error!! Unable to load pdf")));
                       }
                     });
               }
