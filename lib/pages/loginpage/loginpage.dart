@@ -389,6 +389,23 @@ class _loginpageState extends State<loginpage> {
                               )
                             ],
                           ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                right: screenwidth(context) * 0.08),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Checkbox(
+                                      value: rememberMe,
+                                      onChanged: ((value) => setState(() {
+                                            rememberMe = !rememberMe;
+                                          }))),
+                                  const Text(
+                                    "Remember me",
+                                    style: TextStyle(fontSize: 16),
+                                  )
+                                ]),
+                          ),
                           const SizedBox(),
                           logInButton("Log in", login, Icons.person_add,
                               context, isloading),

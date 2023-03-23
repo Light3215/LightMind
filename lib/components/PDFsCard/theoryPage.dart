@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iiest_app/components/subjectcomp.dart';
 import 'package:iiest_app/components/PDFsCard/singleSetCard.dart';
+import 'package:iiest_app/utils/constants.dart';
 
 class Theory extends StatefulWidget {
   final chapter;
@@ -48,6 +49,7 @@ class _TheoryState extends State<Theory> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          backgroundColor: Colors.white,
           appBar: appbarName(topic, context),
           body: StreamBuilder(
             stream: dataLoaded,
@@ -60,6 +62,28 @@ class _TheoryState extends State<Theory> {
               } else if (snapshot.connectionState == ConnectionState.none) {
                 return const Center(
                   child: Text(" something went wrong"),
+                );
+              } else if (snapshot.data!.docs.isEmpty) {
+                return Column(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                            height: screenheight(context) * 0.5,
+                            child: Image.asset("assets/NothingHere.avif")),
+                        Container(
+                          child: const Text(
+                            "Nothing here",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenheight(context) * 0.1,
+                    )
+                  ],
                 );
               } else {
                 return ListView.builder(

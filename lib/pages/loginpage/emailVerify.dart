@@ -109,6 +109,7 @@ class _emailVerifyState extends State<emailVerify> {
                       ),
                     ),
                     GestureDetector(
+                      onTap: canResendEmail ? sendVerificationMail : null,
                       child: Container(
                         height: screenheight(context) * 0.07,
                         width: screenwidth(context) * 0.45,
@@ -120,11 +121,10 @@ class _emailVerifyState extends State<emailVerify> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(Icons.mail),
-                            Center(child: Text("  Resend Email")),
+                            Center(child: Text(" Resend Email")),
                           ],
                         ),
                       ),
-                      onTap: canResendEmail ? sendVerificationMail : null,
                     ),
                   ],
                 )),

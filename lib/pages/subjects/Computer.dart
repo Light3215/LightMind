@@ -15,8 +15,7 @@ class _ComputerState extends State<Computer> {
   List lists = [
     "Introduction",
     "Logic operation and basic gates",
-    "Computer Organisation",
-    "Problem Solving Steps",
+    "Number System",
     "Introduction to Programming "
   ];
   String type = "Introduction to Computing";

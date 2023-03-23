@@ -13,7 +13,7 @@ class Physics extends StatefulWidget {
 
 class _PhysicsState extends State<Physics> {
   List lists = [
-    "hello",
+    "Vectors",
     "Electromagnetics Theory",
     "Oscillations",
     "Waves",

@@ -69,11 +69,11 @@ class _signUpPageState extends State<signUpPage> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: screenheight(context) * 0.07,
+                    height: screenheight(context) * 0.076,
                   ),
                   Container(
                     height: screenheight(context) * 0.2,
-                    width: screenwidth(context) * 0.3,
+                    width: screenwidth(context) * 0.29,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage("assets/person.png"))),

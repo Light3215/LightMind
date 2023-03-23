@@ -16,7 +16,7 @@ class _BEEState extends State<BEE> {
     "D.C. Circuits",
     "Magnetic Circuits",
     "A.C. Fundamentals",
-    "A.C. Cicuits",
+    "A.C. Circuits",
     "Transformers",
     "D.C. Machines",
     "Induction Motor",

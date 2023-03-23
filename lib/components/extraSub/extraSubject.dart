@@ -45,6 +45,7 @@ class _extraSubjectState extends State<extraSubject> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          backgroundColor: Colors.white,
           appBar: appbarName(type, context),
           body: StreamBuilder(
             stream: dataLoaded,
@@ -57,6 +58,28 @@ class _extraSubjectState extends State<extraSubject> {
               } else if (snapshot.connectionState == ConnectionState.none) {
                 return const Center(
                   child: Text(" something went wrong"),
+                );
+              } else if (snapshot.data!.docs.isEmpty) {
+                return Column(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                            height: screenheight(context) * 0.5,
+                            child: Image.asset("assets/NothingHere.avif")),
+                        Container(
+                          child: const Text(
+                            "Nothing here",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: screenheight(context) * 0.1,
+                    )
+                  ],
                 );
               } else {
                 return ListView.builder(

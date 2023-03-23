@@ -3,6 +3,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:iiest_app/components/loginComp.dart';
 import 'package:iiest_app/utils/constants.dart';
 
 final GlobalKey<ScaffoldMessengerState> forgotPasswordScaffoldMessengerKey =
@@ -17,7 +18,7 @@ class forgotPassword extends StatefulWidget {
 
 class _forgotPasswordState extends State<forgotPassword> {
   TextEditingController EmailController = TextEditingController();
-
+  bool wait = false;
   @override
   void dispose() {
     EmailController.dispose();
@@ -34,76 +35,70 @@ class _forgotPasswordState extends State<forgotPassword> {
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.white,
               body: Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/back.jpeg"),
-                        fit: BoxFit.fill)),
+                decoration: const BoxDecoration(color: Colors.amber),
                 child: SafeArea(
                     child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.08,
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.width * 0.4,
-                          ),
-                          const Text(
-                            "Forgot password",
-                            style: TextStyle(fontSize: 28.5),
-                          ),
-                          const Text(
-                            "Don't worry we have got your back",
-                          )
-                        ],
-                      ),
+                    SizedBox(
+                      height: screenheight(context) * 0.07,
                     ),
                     Container(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * 0.08,
-                          right: MediaQuery.of(context).size.width * 0.08),
-                      child: TextFormField(
-                          controller: EmailController,
-                          decoration: const InputDecoration(
-                              // border: InputBorder.none,
-                              labelText: 'Enter Email'),
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (email) {
-                            if (email != null &&
-                                !EmailValidator.validate(email)) {
-                              return "Enter a valid email";
-                            } else {
-                              return null;
-                            }
-                          }),
+                      height: screenheight(context) * 0.2,
+                      width: screenwidth(context) * 0.45,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/forgotPassword.jpeg"))),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.width * 0.08),
-                      child: GestureDetector(
-                        onTap: resetPassword,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                    Center(
+                      child: Container(
+                        height: screenheight(context) * 0.55,
+                        width: screenwidth(context) * 0.9,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(
-                              height: screenheight(context) * 0.075,
-                              width: screenwidth(context) * 0.55,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.amber,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(Icons.email),
-                                  Center(child: Text("Reset password")),
-                                ],
-                              ),
+                            Column(
+                              children: const [
+                                Text(
+                                  "Forgot password",
+                                  style: TextStyle(fontSize: 28.5),
+                                ),
+                                Text(
+                                  "Don't worry we have got your back",
+                                )
+                              ],
                             ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.08,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.08),
+                              child: TextFormField(
+                                  controller: EmailController,
+                                  decoration: const InputDecoration(
+                                      // border: InputBorder.none,
+                                      labelText: 'Enter Email'),
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  validator: (email) {
+                                    if (email != null &&
+                                        !EmailValidator.validate(email)) {
+                                      return "Enter a valid email";
+                                    } else {
+                                      return null;
+                                    }
+                                  }),
+                            ),
+                            Container(
+                                child: logInButton("Reset Password",
+                                    resetPassword, Icons.mail, context, false)),
                           ],
                         ),
                       ),
@@ -124,21 +119,21 @@ class _forgotPasswordState extends State<forgotPassword> {
               content:
                   Text("Password reset email sent (Check spam mail also)")));
     } on FirebaseAuthException catch (e) {
+      print(e);
       showSnack(e.code);
     }
   }
 
   void showSnack(String title) {
-    final snackbar = SnackBar(
-        duration: const Duration(seconds: 4),
-        content: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-          ),
-        ));
-    forgotPasswordScaffoldMessengerKey.currentState?.showSnackBar(snackbar);
+    if (title == "network-request-failed") {
+      forgotPasswordScaffoldMessengerKey.currentState
+          ?.showSnackBar(snackbar("No internet"));
+    } else if (title == "user-not-found") {
+      forgotPasswordScaffoldMessengerKey.currentState
+          ?.showSnackBar(snackbar("Account does not exist"));
+    } else {
+      forgotPasswordScaffoldMessengerKey.currentState
+          ?.showSnackBar(snackbar("Enter valid email"));
+    }
   }
 }

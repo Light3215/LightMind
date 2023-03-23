@@ -170,11 +170,10 @@ class _doubleSetCardState extends State<doubleSetCard> {
                             ),
                             // color: Colors.lightBlue[400]
                           ),
-                          child: Center(
-                              child: Text(
+                          child: Text(
                             snap["question desc"],
                             textAlign: TextAlign.center,
-                          )),
+                          ),
                         ),
                         onTap: () {
                           openPDF(snap['question link']);
@@ -194,12 +193,11 @@ class _doubleSetCardState extends State<doubleSetCard> {
                             ),
                             // color: Colors.lightGreen[400]
                           ),
-                          child: Center(
-                              child: Text(
+                          child: Text(
                             snap["answer desc"],
                             // style: TextStyle(color: Colors.black),
                             textAlign: TextAlign.center,
-                          )),
+                          ),
                         ),
                         onTap: () {
                           openPDF(snap['answer link']);
