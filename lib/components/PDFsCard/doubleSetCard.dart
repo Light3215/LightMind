@@ -109,7 +109,7 @@ class _doubleSetCardState extends State<doubleSetCard> {
                         },
                         icon: Icon(likes, color: Colors.red)),
                     Text(
-                      (snap["liked user"].length).toString() + " Stars",
+                      "${snap["liked user"].length} Stars",
                       style: const TextStyle(fontSize: 15),
                     ),
                   ],
@@ -170,9 +170,11 @@ class _doubleSetCardState extends State<doubleSetCard> {
                             ),
                             // color: Colors.lightBlue[400]
                           ),
-                          child: Text(
-                            snap["question desc"],
-                            textAlign: TextAlign.center,
+                          child: Center(
+                            child: Text(
+                              snap["question desc"],
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                         onTap: () {

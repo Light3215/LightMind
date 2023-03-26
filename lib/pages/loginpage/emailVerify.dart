@@ -48,8 +48,8 @@ class _emailVerifyState extends State<emailVerify> {
       setState(() {
         canResendEmail = false;
       });
-      final user = FirebaseAuth.instance.currentUser!;
-      await user.sendEmailVerification();
+      // final user = FirebaseAuth.instance.currentUser!;
+      // await user.sendEmailVerification();
       showSnack("Mail has been send successfully... ");
       await Future.delayed(const Duration(seconds: 5));
       setState(() {
@@ -68,68 +68,65 @@ class _emailVerifyState extends State<emailVerify> {
   }
 
   @override
-  Widget build(BuildContext context) => isEmailVerified
-      ? const loginpage()
-      : MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: ScaffoldMessenger(
-            key: EmailscaffoldMessengerKey,
-            child: Scaffold(
-              body: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/back.jpeg"),
-                        fit: BoxFit.fill)),
-                child: SafeArea(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(30),
-                      margin: const EdgeInsets.all(30),
-                      child: const Text(
-                        "Verification Mail has been send to your mail.",
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: ScaffoldMessenger(
+          key: EmailscaffoldMessengerKey,
+          child: Scaffold(
+            body: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/back.jpeg"), fit: BoxFit.fill)),
+              child: SafeArea(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(30),
+                    margin: const EdgeInsets.all(30),
+                    child: const Text(
+                      "Verification Mail has been send to your mail.",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(15),
+                    child: const Text(
+                      "After getting verified , Restart the app.",
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: canResendEmail ? sendVerificationMail : null,
+                    child: Container(
+                      height: screenheight(context) * 0.07,
+                      width: screenwidth(context) * 0.45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Colors.amber,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.mail),
+                          Center(child: Text("Resend Email")),
+                        ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.all(15),
-                      child: const Text(
-                        "After getting verified , Restart the app.",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: canResendEmail ? sendVerificationMail : null,
-                      child: Container(
-                        height: screenheight(context) * 0.07,
-                        width: screenwidth(context) * 0.45,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Colors.amber,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(Icons.mail),
-                            Center(child: Text(" Resend Email")),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-              ),
+                  ),
+                ],
+              )),
             ),
           ),
-        );
+        ),
+      );
 }
