@@ -48,8 +48,8 @@ class _emailVerifyState extends State<emailVerify> {
       setState(() {
         canResendEmail = false;
       });
-      // final user = FirebaseAuth.instance.currentUser!;
-      // await user.sendEmailVerification();
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
       showSnack("Mail has been send successfully... ");
       await Future.delayed(const Duration(seconds: 5));
       setState(() {

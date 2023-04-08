@@ -60,7 +60,7 @@ class PdfData {
   static var currUser = FirebaseAuth.instance.currentUser?.uid;
   static var currEmail = FirebaseAuth.instance.currentUser?.email;
   static var con;
-  static docExist(snap, username) async {
+  static docExistInReport(snap, username) async {
     try {
       await FirebaseFirestore.instance
           .collection("report")
@@ -69,6 +69,16 @@ class PdfData {
           .then((doc) {
         con = doc.exists;
       });
+
+      print(con);
+      return con;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static docExistInUser(snap, username) async {
+    try {
       await FirebaseFirestore.instance
           .collection("user")
           .doc(username)
@@ -78,7 +88,6 @@ class PdfData {
           .then((doc) {
         con = doc.exists;
       });
-
       return con;
     } catch (e) {
       return false;
@@ -351,11 +360,7 @@ class PdfData {
           .update({'report': reportMap});
     }
 
-    if (await docExist(snap, username)) {
-      await FirebaseFirestore.instance
-          .collection("report")
-          .doc(snap["Pid"])
-          .update({"report": reportMap});
+    if (await docExistInUser(snap, username)) {
       await FirebaseFirestore.instance
           .collection("user")
           .doc(username)
@@ -365,16 +370,6 @@ class PdfData {
         "report": FieldValue.arrayUnion([rep])
       });
     } else {
-      await FirebaseFirestore.instance
-          .collection("report")
-          .doc(snap["Pid"])
-          .set({
-        'Pid': snap["Pid"],
-        'subject': snap["subject"],
-        'chapter': snap["chapter"] ?? "",
-        'type': snap["type"],
-        'report': reportMap,
-      });
       await FirebaseFirestore.instance
           .collection("user")
           .doc(username)
@@ -386,6 +381,24 @@ class PdfData {
         'chapter': snap["chapter"] ?? "",
         'type': snap["type"],
         "report": [rep]
+      });
+    }
+
+    if (await docExistInReport(snap, username)) {
+      await FirebaseFirestore.instance
+          .collection("report")
+          .doc(snap["Pid"])
+          .update({"report": reportMap});
+    } else {
+      await FirebaseFirestore.instance
+          .collection("report")
+          .doc(snap["Pid"])
+          .set({
+        'Pid': snap["Pid"],
+        'subject': snap["subject"],
+        'chapter': snap["chapter"] ?? "",
+        'type': snap["type"],
+        'report': reportMap,
       });
     }
   }

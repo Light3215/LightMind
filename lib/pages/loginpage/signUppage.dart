@@ -218,10 +218,6 @@ class _signUpPageState extends State<signUpPage> {
           password: PasswordController.text.trim(),
         ));
         pref.setString("Username", UsernameController.text);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const emailVerify()),
-        );
         users user1 = users(
           Username: UsernameController.text.trim(),
           Email: EmailController.text.trim(),
@@ -232,6 +228,12 @@ class _signUpPageState extends State<signUpPage> {
             .collection("user")
             .doc(cred.user!.uid)
             .set(user1.toJson());
+
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const emailVerify()),
+        );
       }
     } on FirebaseAuthException catch (err) {
       showSnack(err.code);
