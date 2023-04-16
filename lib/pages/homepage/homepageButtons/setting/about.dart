@@ -41,7 +41,14 @@ class _aboutState extends State<about> {
                       "Lightmind desires to continue on serving first-year students from all departments by providing this service and keeping it up-to-date so that they experience no issues by using app. There is no intention of making a profit from this application neither now nor in future, everything provided here is free. We also intend to expand to second-year students in the near future. Until then, stay updated and strive effectively in your academics.",
                       Colors.black87,
                       Colors.blue,
-                      Colors.amber)
+                      Colors.amber),
+                  TextCage(
+                      context,
+                      "Contributer",
+                      "Aadipto basak - Data manager - VIIT Velore",
+                      Colors.white,
+                      Colors.amber,
+                      Colors.black)
                 ],
               ),
             ),
